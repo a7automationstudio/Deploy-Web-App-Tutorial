@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>VPS Fetch/Write Demo</title>
+  <title>Demostración VPS Fetch/Write</title>
   <style>
     body{font-family:system-ui,Arial;padding:2rem;max-width:760px;margin:auto;line-height:1.5}
     .card{padding:1rem;border:1px solid #ddd;border-radius:12px;margin:1rem 0}
@@ -15,25 +15,25 @@
 <script defer src="https://analytics.myvpsdemo.cloud/script.js" data-website-id="e969b131-9fa9-433d-b387-86aaf51a4525"></script>
 </head>
 <body>
-  <h1>VPS Fetch/Write Demo</h1>
-  <p>This page is served by Node.js on your VPS. Use the buttons to call real API routes.</p>
+  <h1>Demostración VPS Fetch/Write</h1>
+  <p>Esta página es servida por Node.js en tu VPS. Usa los botones para llamar a las rutas reales de la API.</p>
   <div class="card">
-    <h3>Read: Fetch Data (GET)</h3>
+    <h3>Lectura: Obtener Datos (GET)</h3>
     <div class="row">
-      <button id="getBtn">Fetch Data</button>
+      <button id="getBtn">Obtener Datos</button>
       <span id="getMsg"></span>
     </div>
   </div>
   <div class="card">
-    <h3>Write: Save an Event (POST)</h3>
+    <h3>Escritura: Guardar un Evento (POST)</h3>
     <div class="row">
-      <button id="writeBtn">Write Data</button>
+      <button id="writeBtn">Escribir Datos</button>
       <span id="writeMsg"></span>
     </div>
   </div>
   <div class="card">
-    <h3>Metrics (Live)</h3>
-    <pre id="metricsBox">Loading…</pre>
+    <h3>Métricas (En Vivo)</h3>
+    <pre id="metricsBox">Cargando…</pre>
   </div>
 <script>
 const $ = (id)=>document.getElementById(id);
@@ -41,7 +41,7 @@ async function getJSON(url, opts){ const r=await fetch(url,opts); if(!r.ok) thro
 $('getBtn').onclick = async () => {
   try {
     const data = await getJSON('/api/time');
-    $('getMsg').textContent = 'Server time: ' + data.time;
+    $('getMsg').textContent = 'Hora del servidor: ' + data.time;
     $('getMsg').className = 'ok';
     window.umami?.track('fetch_data');
   } catch {
@@ -52,7 +52,7 @@ $('getBtn').onclick = async () => {
 $('writeBtn').onclick = async () => {
   try {
     const data = await getJSON('/api/demo-write', { method:'POST' });
-    $('writeMsg').textContent = 'Writes so far: ' + data.total;
+    $('writeMsg').textContent = 'Escrituras hasta ahora: ' + data.total;
     $('writeMsg').className = 'ok';
     window.umami?.track('write_data');
     loadMetrics();
@@ -66,15 +66,10 @@ async function loadMetrics(){
     const m = await getJSON('/api/metrics');
     $('metricsBox').textContent = JSON.stringify(m, null, 2);
   } catch {
-    $('metricsBox').textContent = 'Error loading metrics';
+    $('metricsBox').textContent = 'Error al cargar métricas';
   }
 }
 loadMetrics();
 </script>
 </body>
 </html>
-
-
-
-
-
